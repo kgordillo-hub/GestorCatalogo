@@ -1,33 +1,39 @@
-package co.mlforex.forecast.model;
+package co.mlforex.forecast.gestorCatalogo.model;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.util.json.JSONObject;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.Serializable;
 @DynamoDBTable(tableName = "MiCatalogoInfo")
 public class MiCatalogoInfo implements Serializable {
 
-    //Partition Key
+    private String UID;
+    @DynamoDBAttribute
     private String nombreApp;
+    @DynamoDBAttribute
     private String version;
+    @DynamoDBAttribute
     private String idUsuario;
 
-    //Autogenerado por DB
+    @DynamoDBAttribute
     private Integer consecutivo;
 
     //Atributos
-    private String IP_API;
+    @DynamoDBAttribute
+    private String ipAPI;
+    @DynamoDBAttribute
     private Integer numeroPuerto;
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.BOOL)
+    @DynamoDBAttribute
     private Boolean enPreparacion;
+    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.BOOL)
+    @DynamoDBAttribute
     private Boolean enEntrenamiento;
 
     //Otros atributos
+    @DynamoDBAttribute
     private String idTransaccion;
-    private byte[] dataset;
-    private JSONObject openAPIFileContent;
-    private String [] metricasCalcular;
 
-    private String datasetLink;
 
     public String getNombreApp() {
         return nombreApp;
@@ -61,12 +67,12 @@ public class MiCatalogoInfo implements Serializable {
         this.consecutivo = consecutivo;
     }
 
-    public String getIP_API() {
-        return IP_API;
+    public String getIpAPI() {
+        return ipAPI;
     }
 
-    public void setIP_API(String IP_API) {
-        this.IP_API = IP_API;
+    public void setIpAPI(String ipAPI) {
+        this.ipAPI = ipAPI;
     }
 
     public Integer getNumeroPuerto() {
@@ -101,35 +107,16 @@ public class MiCatalogoInfo implements Serializable {
         this.idTransaccion = idTransaccion;
     }
 
-    public byte[] getDataset() {
-        return dataset;
+    @DynamoDBHashKey(attributeName = "UID")
+    public String getUID() {
+        return UID;
     }
 
-    public void setDataset(byte[] dataset) {
-        this.dataset = dataset;
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
-    public JSONObject getOpenAPIFileContent() {
-        return openAPIFileContent;
-    }
-
-    public void setOpenAPIFileContent(JSONObject openAPIFileContent) {
-        this.openAPIFileContent = openAPIFileContent;
-    }
-
-    public String[] getMetricasCalcular() {
-        return metricasCalcular;
-    }
-
-    public void setMetricasCalcular(String[] metricasCalcular) {
-        this.metricasCalcular = metricasCalcular;
-    }
-
-    public String getDatasetLink() {
-        return datasetLink;
-    }
-
-    public void setDatasetLink(String datasetLink) {
-        this.datasetLink = datasetLink;
+    public String generateUID(){
+        return DigestUtils.md5Hex(nombreApp.toLowerCase()+":"+version+":"+idUsuario+":"+consecutivo);
     }
 }
