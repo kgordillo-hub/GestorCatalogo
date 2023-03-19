@@ -96,17 +96,21 @@ public class ServicioCatalogoImp implements ServicioCatalogo {
     public void actualizarMiCatalogo(MiCatalogoInfo miCatalogoInfo, String evento) {
         if (evento.equalsIgnoreCase("aprovisionamiento")) {
             MiCatalogoInfo mci = getFirstOccurence(miCatalogoInfo, Boolean.TRUE);
-            if (mci != null ) {
+            if (mci != null) {
                 mci.setEnPreparacion(Boolean.FALSE);
                 mci.setIpAPI(miCatalogoInfo.getIpAPI());
                 mci.setNumeroPuerto(miCatalogoInfo.getNumeroPuerto());
                 myCatalogInfo.save(mci);
             }
         } else if (evento.equalsIgnoreCase("entrenamiento")) {
-            MiCatalogoInfo mci = getFirstOccurence(miCatalogoInfo, Boolean.FALSE);
-            if (mci != null ) {
-                mci.setEnEntrenamiento(Boolean.FALSE);
-                myCatalogInfo.save(mci);
+            if (miCatalogoInfo.getIdTransaccion() != null
+                    && miCatalogoInfo.getEndPoint()!=null
+                    && miCatalogoInfo.getEndPoint().toLowerCase().endsWith("trainModel")) {
+                Optional<MiCatalogoInfo> mci = myCatalogInfo.findById(miCatalogoInfo.getIdTransaccion());
+                if (!mci.isEmpty()) {
+                    mci.get().setEnEntrenamiento(Boolean.FALSE);
+                    myCatalogInfo.save(mci.get());
+                }
             }
         }
     }

@@ -31,8 +31,11 @@ public class MiCatalogoInfo implements Serializable {
     private Boolean enEntrenamiento;
 
     //Otros atributos
-    @DynamoDBAttribute
+    @DynamoDBIgnore
     private String idTransaccion;
+
+    @DynamoDBIgnore
+    private String endPoint;
 
 
     public String getNombreApp() {
@@ -114,6 +117,15 @@ public class MiCatalogoInfo implements Serializable {
 
     public void setUID(String UID) {
         this.UID = UID;
+    }
+
+
+    public String getEndPoint() {
+        return endPoint;
+    }
+
+    public void setEndPoint(String endPoint) {
+        this.endPoint = endPoint;
     }
 
     public String generateUID(){
