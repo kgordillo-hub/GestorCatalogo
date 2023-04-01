@@ -37,6 +37,9 @@ public class MiCatalogoInfo implements Serializable {
     @DynamoDBIgnore
     private String endPoint;
 
+    @DynamoDBAttribute
+    private String descripcion;
+
 
     public String getNombreApp() {
         return nombreApp;
@@ -130,5 +133,13 @@ public class MiCatalogoInfo implements Serializable {
 
     public String generateUID(){
         return DigestUtils.md5Hex(nombreApp.toLowerCase()+":"+version+":"+idUsuario+":"+consecutivo);
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

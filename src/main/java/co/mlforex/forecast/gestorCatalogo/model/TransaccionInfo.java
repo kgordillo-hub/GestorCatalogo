@@ -20,6 +20,9 @@ public class TransaccionInfo implements Serializable {
     //Attributes
     private Mensaje mensaje;
 
+    @DynamoDBAttribute
+    private String descripcion;
+
     public String getNombreApp() {
         return nombreApp;
     }
@@ -56,5 +59,13 @@ public class TransaccionInfo implements Serializable {
 
     public String generateUID(){
         return DigestUtils.md5Hex(nombreApp.toLowerCase()+":"+version);
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

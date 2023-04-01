@@ -105,10 +105,10 @@ public class ServicioCatalogoImp implements ServicioCatalogo {
         } else if (evento.equalsIgnoreCase("entrenamiento")) {
             if (miCatalogoInfo.getIdTransaccion() != null
                     && miCatalogoInfo.getEndPoint()!=null
-                    && miCatalogoInfo.getEndPoint().toLowerCase().endsWith("trainModel")) {
+                    && miCatalogoInfo.getEndPoint().toLowerCase().endsWith("trainmodel")) {
                 Optional<MiCatalogoInfo> mci = myCatalogInfo.findById(miCatalogoInfo.getIdTransaccion());
                 if (!mci.isEmpty()) {
-                    mci.get().setEnEntrenamiento(Boolean.FALSE);
+                    mci.get().setEnEntrenamiento(miCatalogoInfo.getEnEntrenamiento()!=null ? miCatalogoInfo.getEnEntrenamiento():Boolean.FALSE);
                     myCatalogInfo.save(mci.get());
                 }
             }

@@ -21,6 +21,7 @@ public class GestorCatalogoController {
     @Autowired
     ServicioCatalogo servicioCatalogo;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/consultarCatalogoGral")
     public ResponseEntity<List<TransaccionInfo>> consultarCatalogoGral() {
         try {
@@ -33,6 +34,7 @@ public class GestorCatalogoController {
 
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/agregarCatalogoGral")
     public ResponseEntity<String> agregarCatalogoGral(@RequestBody TransaccionInfo transaccionInfo) {
         try {
@@ -49,6 +51,7 @@ public class GestorCatalogoController {
 
     //Catalogo privado
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/consultarMiCatalogo/{idUsuario}")
     public ResponseEntity<List<MiCatalogoInfo>> consultarMiCatalogo(@PathVariable String idUsuario) {
         try{
@@ -60,6 +63,7 @@ public class GestorCatalogoController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/agregarMiCatalogo")
     public ResponseEntity<String> agregarMiCatalogo(@RequestBody MiCatalogoInfo miCatalogoInfo) {
         try{
@@ -74,6 +78,7 @@ public class GestorCatalogoController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/actualizarMiCatalogo/{event}")
     public ResponseEntity<String> actualizarMiCatalogo(@RequestBody MiCatalogoInfo miCatalogoInfo, @PathVariable String event) {
         try{
