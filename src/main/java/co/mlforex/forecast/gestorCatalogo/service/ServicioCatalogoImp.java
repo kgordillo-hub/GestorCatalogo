@@ -109,6 +109,10 @@ public class ServicioCatalogoImp implements ServicioCatalogo {
                 Optional<MiCatalogoInfo> mci = myCatalogInfo.findById(miCatalogoInfo.getIdTransaccion());
                 if (!mci.isEmpty()) {
                     mci.get().setEnEntrenamiento(miCatalogoInfo.getEnEntrenamiento()!=null ? miCatalogoInfo.getEnEntrenamiento():Boolean.FALSE);
+                    if(miCatalogoInfo.getDescripcion()!=null && !miCatalogoInfo.getDescripcion().isEmpty()){
+                        mci.get().setDescripcion(miCatalogoInfo.getDescripcion());
+                    }
+
                     myCatalogInfo.save(mci.get());
                 }
             }
